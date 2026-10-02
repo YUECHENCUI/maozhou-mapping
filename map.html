@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>茅洲河中游 · 交互地图</title>
+<!-- MapLibre GL JS 5.24.0（已打包在 lib/，离线/双击即可用）。
+     如需改走 CDN，可替换为国内可访问的镜像：
+     https://registry.npmmirror.com/maplibre-gl/5.24.0/files/dist/maplibre-gl.js
+     https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.0/dist/maplibre-gl.js            -->
+<link rel="stylesheet" href="lib/maplibre-gl.css">
+<style>
+ :root{--ui:'Microsoft YaHei','微软雅黑','PingFang SC','Noto Sans CJK SC','Noto Sans SC',sans-serif;--cyan:#2EC2C9;--orange:#FF7300}
+ html,body{margin:0;height:100%;background:#000;font-family:var(--ui)}
+ #map{position:absolute;inset:0}
+ .lbl{pointer-events:none;line-height:0}
+ .lbl svg{display:block;overflow:visible;filter:drop-shadow(0 0 2px rgba(0,0,0,.55))}
+ body.lbl-small .lbl .en{display:none}
+ #panel{position:absolute;top:12px;left:12px;width:228px;background:rgba(12,14,16,.82);backdrop-filter:blur(6px);
+   color:#ddd;border:1px solid rgba(255,255,255,.08);border-radius:10px;font-size:12.5px;box-shadow:0 6px 24px rgba(0,0,0,.4);z-index:2}
+ #panel header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.07)}
+ #panel header b{font-size:14px;letter-spacing:.5px;color:#fff} #panel header b span{color:var(--orange)}
+ #toggle{background:none;border:0;color:#aaa;cursor:pointer;font-size:14px}
+ #panel .body{padding:6px 12px 12px;max-height:calc(100vh - 90px);overflow:auto}
+ #panel.collapsed .body{display:none}
+ #panel h4{margin:10px 0 4px;font-size:11px;color:#8a949a;font-weight:normal;letter-spacing:1px}
+ #panel label{display:flex;align-items:center;gap:6px;padding:2.5px 0;cursor:pointer}
+ #panel input[type=checkbox],#panel input[type=radio]{accent-color:var(--cyan);margin:0}
+ #panel input[type=range]{width:100%;accent-color:var(--orange)}
+ #reset{margin-top:10px;width:100%;padding:6px;background:rgba(46,194,201,.15);border:1px solid rgba(46,194,201,.5);color:#bff;border-radius:6px;cursor:pointer;font-family:var(--ui)}
+ #crsinfo{color:#7d8a90;font-size:11px;margin-top:4px}
+ .foot{margin-top:10px;font-size:11px;color:#6d777c} .foot a{color:#65DFDF;text-decoration:none}
+ #toast{position:absolute;left:50%;bottom:36px;transform:translateX(-50%);background:rgba(0,0,0,.8);color:#fff;padding:8px 14px;border-radius:6px;
+   font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:3} #toast.show{opacity:1}
+ .maplibregl-ctrl-scale{background:rgba(0,0,0,.5);color:#ccc;border-color:#ccc}
+ .maplibregl-ctrl-attrib{background:rgba(0,0,0,.5)!important;color:#999} .maplibregl-ctrl-attrib a{color:#aaa}
+</style></head>
+<body>
+<div id="map"></div>
+<div id="panel">
+  <header><b>茅洲河中游 <span>·</span> 空间结构</b><button id="toggle" title="收起/展开">☰</button></header>
+  <div class="body">
+    <h4>设计图层</h4><div id="ly-list"></div>
+    <h4>图层透明度</h4><input id="op" type="range" min="10" max="100" value="100">
+    <h4>底图</h4><div id="bm-list"></div><div id="crsinfo"></div>
+    <button id="reset">回到原图视角</button>
+    <div class="foot"><a href="static.html">← 静态复刻版</a></div>
+  </div>
+</div>
+<div id="toast"></div>
+<script src="lib/maplibre-gl.js"></script>
+<script src="js/config.js"></script>
+<script src="js/coord.js"></script>
+<script src="data/design-data.js"></script>
+<script src="js/app.js"></script>
+</body></html>
